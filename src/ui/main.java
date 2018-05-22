@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import project.Game;
-import ui.DiceUI.rollDie;
 
 public class main extends JFrame{
 
@@ -22,24 +21,17 @@ public class main extends JFrame{
 	private JButton restartBtn;
 	private JButton quitBtn;
 	private JPanel south;
-	private DiceUI dieUI;
 	private JButton roll_btn;
+	private BoardUI boardUI;
 
-	/**
-	 * Create a main frame of the game.
-	 * @param game Game to play on the main frame.
-	 */
 	public main(Game game){
 		this.game = game;
 		initComponents();
 	}
 	
-	public DiceUI getDieUI(){
-		return dieUI;
-	}
 
 	public void initComponents() {
-		BoardUI boardUI = new BoardUI(game);
+		boardUI = new BoardUI(game);
 		Controller controllerUI = new Controller(this,game);
 		ImageIcon restartbtnImg = new ImageIcon(this.getClass().getResource("/lib/restartbtn.png"));
 		restartBtn = new JButton(restartbtnImg);
@@ -49,11 +41,6 @@ public class main extends JFrame{
 		this.setTitle("Snake and Ladder");
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
-		JPanel north = new JPanel((LayoutManager) new FlowLayout(FlowLayout.LEFT));
-		north.add(new JLabel("Current player: "), BorderLayout.NORTH);
-		north.add(controllerUI.getPlayerPanel());
-		this.add(north, BorderLayout.NORTH);
-		
 		ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/lib/rollbtn.png"));
 		roll_btn = new JButton(rollbtnImg);
 		roll_btn.addActionListener(new rollDie());
@@ -67,9 +54,6 @@ public class main extends JFrame{
 		restartBtn.addActionListener(new EndListener(EndListener.RESTART));
 		quitBtn.addActionListener(new EndListener(EndListener.QUIT));
 		this.add(south,BorderLayout.SOUTH);
-		JPanel east = new JPanel();
-		east.add(controllerUI);
-		this.add(east, BorderLayout.EAST);
 		this.pack();
 		this.setLocationRelativeTo(null);
 	}
@@ -121,12 +105,15 @@ public class main extends JFrame{
 	}
 	
 	class rollDie implements ActionListener{
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int temp = game.currentPlayerRollDice();
-			roll_btn.setEnabled(false);
+			game.currentPlayerRollDice();
+			game.currentPlayerMovePiece(game.getDieFace());
+			boardUI.updateBoard();
+			game.switchPlayer();
 		}
-
+		
 	}
 	
 }

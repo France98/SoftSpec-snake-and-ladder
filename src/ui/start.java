@@ -19,9 +19,6 @@ public class start extends JFrame {
 	private JButton threePlayer;
 	private JButton fourPlayer;
 
-	/**
-	 * Create game GUI.
-	 */
 	public start(){
 		initComponents();
 	}
@@ -32,9 +29,6 @@ public class start extends JFrame {
 		wrapup.setLayout(new BoxLayout(wrapup,BoxLayout.Y_AXIS));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		JPanel north = new JPanel();
-		ImageIcon bannerImg = new ImageIcon(this.getClass().getResource("/lib/banner.png"));
-		JLabel banner = new JLabel(bannerImg);
-		north.add(banner);
 		wrapup.add(north);
 		JPanel center = new JPanel();
 		ImageIcon twoPlayerImg = new ImageIcon(this.getClass().getResource("/lib/2p.png"));

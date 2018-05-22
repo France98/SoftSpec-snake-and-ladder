@@ -3,6 +3,8 @@ package ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -129,13 +131,6 @@ public class Controller extends JPanel {
 		return playerPanel;
 	}
 
-	/**
-	 * Panel that displays the current player.
-	 * 
-	 * @author Pappim Pipatkasrira
-	 * @version 1.0
-	 * @since May 12, 2018
-	 */
 	class PlayerPanel extends JPanel {
 
 		JLabel currentPlayer = new JLabel("P1");
@@ -170,6 +165,5 @@ public class Controller extends JPanel {
 			}
 			currentPlayer.setText(temp);
 		}
-
 	}
 }
