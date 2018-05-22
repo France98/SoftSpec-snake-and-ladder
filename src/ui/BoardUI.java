@@ -89,8 +89,33 @@ public class BoardUI extends JPanel {
 				playerLabel = new JLabel[game.getPlayers().size()];
 				for (int x = 0; x < playerLabel.length; x++) {
 					playerLabel[x] = new JLabel(game.getPlayers().get(x).getName());
+					
 				}
-
+				if (playerLabel.length == 2) {
+					ImageIcon playerImg = new ImageIcon(this.getClass().getResource("/lib/p1.png"));
+					playerLabel[0].setIcon(playerImg);
+					ImageIcon playerImg2 = new ImageIcon(this.getClass().getResource("/lib/p2.png"));
+					playerLabel[1].setIcon(playerImg2);
+				}
+				else if (playerLabel.length == 3) {
+					ImageIcon playerImg3 = new ImageIcon(this.getClass().getResource("/lib/p1.png"));
+					playerLabel[0].setIcon(playerImg3);
+					ImageIcon playerImg4 = new ImageIcon(this.getClass().getResource("/lib/p2.png"));
+					playerLabel[1].setIcon(playerImg4);
+					ImageIcon playerImg5 = new ImageIcon(this.getClass().getResource("/lib/p3.png"));
+					playerLabel[2].setIcon(playerImg5);
+				}
+				else if (playerLabel.length == 4) {
+					ImageIcon playerImg6 = new ImageIcon(this.getClass().getResource("/lib/p1.png"));
+					playerLabel[0].setIcon(playerImg6);
+					ImageIcon playerImg7 = new ImageIcon(this.getClass().getResource("/lib/p2.png"));
+					playerLabel[1].setIcon(playerImg7);
+					ImageIcon playerImg8 = new ImageIcon(this.getClass().getResource("/lib/p3.png"));
+					playerLabel[2].setIcon(playerImg8);
+					ImageIcon playerImg9 = new ImageIcon(this.getClass().getResource("/lib/p4.png"));
+					playerLabel[3].setIcon(playerImg9);
+				}
+				
 				for (JLabel pl : playerLabel) {
 					if (player.getName().equals(pl.getText())) {
 						panels[i].add(pl);
