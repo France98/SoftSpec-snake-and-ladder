@@ -6,6 +6,7 @@ import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 
 import project.Game;
 import ui.DiceUI.DiePanel;
+import ui.DiceUI.DiePanel.rollDie;
 
 public class main extends JFrame{
 
@@ -22,6 +24,7 @@ public class main extends JFrame{
 	private JButton quitBtn;
 	private JPanel south;
 	private DiePanel dieUI;
+	private JButton roll_btn;
 
 	/**
 	 * Create a main frame of the game.
@@ -67,6 +70,15 @@ public class main extends JFrame{
 		this.add(east, BorderLayout.EAST);
 		this.pack();
 		this.setLocationRelativeTo(null);
+		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+		ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/img/rollbtn.png"));
+		roll_btn = new JButton(rollbtnImg);
+		roll_btn.addActionListener(new rollDie());
+		this.add(roll_btn);
+	}
+	
+	public void setEnable(){
+		roll_btn.setEnabled(true);
 	}
 	
 	/**
@@ -101,7 +113,7 @@ public class main extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(mode == RESTART){
-				new StartUI().start();
+				new start().start();
 				setVisible(false);
 				dispose();
 			}
@@ -109,6 +121,15 @@ public class main extends JFrame{
 				System.exit(0);
 			}
 		}
+	}
+	
+	class rollDie implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int temp = game.currentPlayerRollDice();
+			roll_btn.setEnabled(false);
+		}
+
 	}
 	
 }
