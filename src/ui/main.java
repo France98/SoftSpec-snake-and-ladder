@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import project.Game;
+import ui.DiceUI.rollDie;
 
 public class main extends JFrame{
 
@@ -37,9 +38,8 @@ public class main extends JFrame{
 		return dieUI;
 	}
 
-	private void initComponents() {
+	public void initComponents() {
 		BoardUI boardUI = new BoardUI(game);
-		dieUI = new DiceUI(game);
 		Controller controllerUI = new Controller(this,game);
 		ImageIcon restartbtnImg = new ImageIcon(this.getClass().getResource("/lib/restartbtn.png"));
 		restartBtn = new JButton(restartbtnImg);
@@ -53,11 +53,15 @@ public class main extends JFrame{
 		north.add(new JLabel("Current player: "), BorderLayout.NORTH);
 		north.add(controllerUI.getPlayerPanel());
 		this.add(north, BorderLayout.NORTH);
+		
+		ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/lib/rollbtn.png"));
+		roll_btn = new JButton(rollbtnImg);
+		roll_btn.addActionListener(new rollDie());
 		JPanel center = new JPanel();
 		center.add(boardUI);
 		this.add(center,BorderLayout.CENTER);
 		south = new JPanel();
-		south.add(dieUI);
+		south.add(roll_btn);
 		south.add(restartBtn);
 		south.add(quitBtn);
 		restartBtn.addActionListener(new EndListener(EndListener.RESTART));
@@ -68,11 +72,6 @@ public class main extends JFrame{
 		this.add(east, BorderLayout.EAST);
 		this.pack();
 		this.setLocationRelativeTo(null);
-		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/lib/rollbtn.png"));
-		roll_btn = new JButton(rollbtnImg);
-		roll_btn.addActionListener(new rollDie());
-		this.add(roll_btn);
 	}
 	
 	public void setEnable(){

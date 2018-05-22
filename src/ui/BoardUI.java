@@ -30,7 +30,6 @@ import project.Player;
 	public class BoardUI extends JPanel{
 		private Game game;
 		private JPanel[] panels = new JPanel[100];
-		//	JLabel[] numLabel = new JLabel[64];
 		private JLabel[] playerLabel;
 
 		/**
@@ -43,11 +42,9 @@ import project.Player;
 		
 		private void initComponents() {
 			this.setLayout(new GridLayout(10,10));
-			this.setPreferredSize(new Dimension(500,500));
+			this.setPreferredSize(new Dimension(5000,5000));
 			updateBoard();
 		}
-
-
 		/**
 		 * Update informations displayed on the board.
 		 */
