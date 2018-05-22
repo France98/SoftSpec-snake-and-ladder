@@ -8,6 +8,7 @@ public class Game {
 	private ArrayList<Player> players;
     private Die die;
     private Board board;
+    private Piece piece;
 
     private int currentPlayerIndex;
     private boolean ended;
@@ -25,8 +26,30 @@ public class Game {
     }
 
     private void initTraps() {
-		// TODO Auto-generated method stub
-		
+    	int pos = board.getPiecePosition(piece);
+    	switch (pos) {
+    	case 2: board.movePiece(piece, 36);
+    	case 7: board.movePiece(piece, 7);
+    	case 15: board.movePiece(piece, 11);
+    	case 8: board.movePiece(piece, 23);
+    	case 21: board.movePiece(piece, 21);
+    	case 28: board.movePiece(piece, 56);
+    	case 36: board.movePiece(piece, 8);
+    	case 51: board.movePiece(piece, 16);
+    	case 71: board.movePiece(piece, 20);
+    	case 78: board.movePiece(piece, 20);
+    	case 87: board.movePiece(piece, 7);
+    	case 16: board.movePiece(piece, -10);
+    	case 46: board.movePiece(piece, -21);
+    	case 49: board.movePiece(piece, -38);
+    	case 62: board.movePiece(piece, -43);
+    	case 64: board.movePiece(piece, -4);
+    	case 74: board.movePiece(piece, -21);
+    	case 89: board.movePiece(piece, -21);
+    	case 92: board.movePiece(piece, -4);
+    	case 95: board.movePiece(piece, -20);
+    	case 99: board.movePiece(piece, -19);
+    	}
 	}
 
 	public boolean isEnded() { return ended; }

@@ -2,7 +2,7 @@ package project;
 
 public class Board {
 
-    public static final int SIZE = 64;
+    public static final int SIZE = 100;
 
     private Square [] squares;
 
@@ -25,7 +25,40 @@ public class Board {
         if(newPos >= squares.length) {
             newPos = squares.length - 1;
         }
-        addPiece(piece, newPos);
+        final int tempNew = newPos;
+		new Thread(new Runnable(){
+			@Override
+			public void run() {
+				if(tempNew > pos){
+					for(int i = pos ; i < tempNew ; i ++){
+						squares[i].removePiece(piece);
+						addPiece(piece, i+1);
+						try {
+							Thread.sleep(200);
+						} catch (InterruptedException e) {
+							System.err.println("Error delay moves.");
+						}
+					}
+				}
+				else {
+					for(int i = pos ; i > tempNew ; i --){
+						squares[i].removePiece(piece);
+						addPiece(piece, i-1);
+						try {
+							Thread.sleep(200);
+						} catch (InterruptedException e) {
+							System.err.println("Error delay moves.");
+						}
+					}
+				}
+				if(squares[tempNew].getMode() == Square.FREEZE){
+					piece.freeze();
+				}
+				else if(squares[tempNew].getMode() == Square.REVERSE){
+					piece.reverse();
+				}
+			}
+		}).start();
     }
 
     public int getPiecePosition(Piece piece) {
@@ -41,13 +74,10 @@ public class Board {
         return squares[getPiecePosition(piece)].isGoal();
     }
     
-    public void addWarp(int position, int destination){
-		if(position < destination){
-			squares[position].setWarp(new Warp(destination,Warp.LADDER));
-		}
-		else{
-			squares[position].setWarp(new Warp(destination,Warp.SNAKE));
-		}
+    public Square[] getSquares(){
+		return squares;
 	}
+    
+    
 
 }

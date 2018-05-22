@@ -5,9 +5,13 @@ import java.util.List;
 
 public class Square {
 
+	final public static int NORMAL = 0;
+	final public static int FREEZE = 1;
+	final public static int REVERSE = 2;
     private List<Piece> pieces;
     private int number;
     private boolean goal;
+    private int mode = 0;
 
     public Square(int number) {
         this.number = number;
@@ -36,8 +40,12 @@ public class Square {
     public int getNumber() {
         return number;
     }
-
-    public void setWarp(Warp warp){
-		this.warp = warp;
+    
+    public void setMode(int mode){
+		this.mode = mode;
+	}
+	
+	public int getMode(){
+		return mode;
 	}
 }
