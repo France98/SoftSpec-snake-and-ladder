@@ -19,11 +19,9 @@ public class Controller {
 	 * @param game
 	 *            Game to control.
 	 */
-	public Controller(MainFrame frame, Game game) {
+	public Controller(main frame, Game game) {
 		this.frame = frame;
 		this.game = game;
-		game.getBoard().addObserver(this);
-		game.addObserver(this);
 		initComponents();
 	}
 

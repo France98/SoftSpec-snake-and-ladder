@@ -9,6 +9,7 @@ public class Game {
     private Die die;
     private Board board;
     private Piece piece;
+    private Square square;
 
     private int currentPlayerIndex;
     private boolean ended;
@@ -49,6 +50,20 @@ public class Game {
     	case 92: board.movePiece(piece, -4);
     	case 95: board.movePiece(piece, -20);
     	case 99: board.movePiece(piece, -19);
+    	case 9: square.setMode(Square.REVERSE);
+    	case 17: square.setMode(Square.REVERSE);
+    	case 30: square.setMode(Square.REVERSE);
+    	case 37: square.setMode(Square.REVERSE);
+    	case 45: square.setMode(Square.REVERSE);
+    	case 69: square.setMode(Square.REVERSE);
+    	case 77: square.setMode(Square.REVERSE);
+    	case 86: square.setMode(Square.REVERSE);
+    	case 97: square.setMode(Square.REVERSE);
+    	case 13: square.setMode(Square.FREEZE);
+    	case 33: square.setMode(Square.FREEZE);
+    	case 56: square.setMode(Square.FREEZE);
+    	case 79: square.setMode(Square.FREEZE);
+    	case 88: square.setMode(Square.FREEZE);
     	}
 	}
 
@@ -68,8 +83,6 @@ public class Game {
         return board.getPiecePosition(currentPlayer().getPiece());
     }
 
-    public int currentPlayerRollDice() {  return currentPlayer().roll(die);  }
-
     public void currentPlayerMovePiece(int steps) {
         currentPlayer().movePiece(board, steps);
     }
@@ -82,8 +95,28 @@ public class Game {
 		return players;
 	}
     
+<<<<<<< HEAD
     public Board getBoard(){
 		return board;
     	
     }
+=======
+    public boolean isCurrentPlayerWins(){
+		ended = board.pieceIsAtGoal(currentPlayer().getPiece());
+		return ended;
+	}
+    
+    public int currentPlayerRollDice(){
+		int temp = 0;
+		if(!ended){
+			temp = currentPlayer().roll(die);
+		}
+		return temp;
+	}
+    
+    public Board getBoard(){ return board; }
+    
+    public int getDieFace(){ return die.getFace(); }
+    
+>>>>>>> 4b3c21118a3ac2ce5f3b058a02f9ad95d04c90b7
 }
