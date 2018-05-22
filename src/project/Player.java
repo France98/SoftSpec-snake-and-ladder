@@ -22,7 +22,13 @@ public class Player {
     }
 
     public void movePiece(Board board, int steps) {
-        board.movePiece(piece, steps);
+    	if(piece.isReverse()){
+			board.movePiece(piece, - steps);
+			piece.unreverse();
+		}
+		else{
+			board.movePiece(piece, steps);
+		}
     }
 
     public Piece getPiece() {
