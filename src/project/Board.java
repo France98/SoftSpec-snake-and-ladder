@@ -19,46 +19,13 @@ public class Board {
     }
 
     public void movePiece(Piece piece, int steps) {
-        int pos = getPiecePosition(piece);
+    	int pos = getPiecePosition(piece);
         squares[pos].removePiece(piece);
         int newPos = pos + steps;
         if(newPos >= squares.length) {
             newPos = squares.length - 1;
         }
-        final int tempNew = newPos;
-		new Thread(new Runnable(){
-			@Override
-			public void run() {
-				if(tempNew > pos){
-					for(int i = pos ; i < tempNew ; i ++){
-						squares[i].removePiece(piece);
-						addPiece(piece, i+1);
-						try {
-							Thread.sleep(200);
-						} catch (InterruptedException e) {
-							System.err.println("Error delay moves.");
-						}
-					}
-				}
-				else {
-					for(int i = pos ; i > tempNew ; i --){
-						squares[i].removePiece(piece);
-						addPiece(piece, i-1);
-						try {
-							Thread.sleep(200);
-						} catch (InterruptedException e) {
-							System.err.println("Error delay moves.");
-						}
-					}
-				}
-				if(squares[tempNew].getMode() == Square.FREEZE){
-					piece.freeze();
-				}
-				else if(squares[tempNew].getMode() == Square.REVERSE){
-					piece.reverse();
-				}
-			}
-		}).start();
+        addPiece(piece, newPos);
     }
 
     public int getPiecePosition(Piece piece) {

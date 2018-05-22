@@ -1,10 +1,18 @@
 package ui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import project.Game;
 
-public class Controller {
+public class Controller extends JPanel {
 
 	private Game game;
 	private main frame;
@@ -32,7 +40,7 @@ public class Controller {
 	 *            Game to control.
 	 */
 	public Controller(Game game) {
-		this(new MainFrame(game), game);
+		this(new main(game), game);
 	}
 
 	private void initComponents() {
@@ -43,70 +51,70 @@ public class Controller {
 		pane.setPreferredSize(new Dimension(200, 400));
 		this.add(pane);
 		textArea.append("Game started with " + game.getPlayers().size() + " players.\n");
-		update(null, ObserverCodes.PLAYER_CHANGED);
+//		update(null, ObserverCodes.PLAYER_CHANGED);
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		if (arg instanceof ObserverCodes) {
-			ObserverCodes temp = (ObserverCodes) arg;
-			switch(temp){
-			case BOARD_UPDATED:
-				textArea.append(game.currentPlayerName() + " moved to " + game.currentPlayerPosition() + "\n");
-				game.checkCurrentPlayerStatus();
-				if (game.currentPlayerIsAtWarp()) {
-					Warp warp = game.getWarpAtCurrentPosition();
-					if(warp.toString().equals("snake")){
-						ac.snakeSound();
-					}
-					else{
-						ac.ladderSound();
-					}
-					game.currentPlayerWarp(warp);
-					textArea.append(game.currentPlayerName() + " moved to " + game.currentPlayerPosition() + "\n");
-				}
-				if (game.isCurrentPlayerWins()) {
-					ac.winSound();
-					textArea.append("\n" + game.currentPlayerName() + " wins~!\n");
-					infoBox("Player " + game.currentPlayerName() + " wins~!", "Game ended!");
-					frame.end();
-				} else if (game.currentPlayer().isFreeze() || (game.getDieFace() != 6 && !game.currentPlayer().isReverse())) {
-					game.switchPlayer();
-				}
-				frame.getDieUI().setEnable();
-				break;
-			case DIE_ROLLED:
-				textArea.append("Die rolled: " + game.getDieFace() + "\n");
-				game.currentPlayerMovePiece(game.getDieFace());
-				ac.diceSound(game.getDieFace());
-				break;
-			case PLAYER_FREEZE:
-				textArea.append(game.currentPlayerName() + " is frozen.\n");
-				ac.freezeSound();
-				break;
-			case PLAYER_REVERSE:
-				textArea.append(game.currentPlayerName() + " stepped on reverse buff.\n");
-				ac.reverseSound();
-				break;
-			case PLAYER_CHANGED:
-				textArea.append("\n" + game.currentPlayerName() + "'s turn.\n");
-				textArea.append(game.currentPlayerName() + " is at " + game.currentPlayerPosition() + ".\n");
-				if (game.currentPlayer().isFreeze()) {
-					textArea.append(game.currentPlayerName() + " is freezing.\n");
-					game.currentPlayer().unfreeze();
-					game.switchPlayer();
-				}
-				playerPanel.update();
-				break;
-			case PLAYER_WARP:
-				textArea.append(game.currentPlayerName() + " met the " + game.getWarpAtCurrentPosition() + "\n");
-				game.checkCurrentPlayerStatus();
-				break;
-			default:
-			}
-		}
-		textArea.setCaretPosition(textArea.getDocument().getLength());
-	}
+//	@Override
+//	public void update(Observable o, Object arg) {
+//		if (arg instanceof ObserverCodes) {
+//			ObserverCodes temp = (ObserverCodes) arg;
+//			switch(temp){
+//			case BOARD_UPDATED:
+//				textArea.append(game.currentPlayerName() + " moved to " + game.currentPlayerPosition() + "\n");
+//				game.checkCurrentPlayerStatus();
+//				if (game.currentPlayerIsAtWarp()) {
+//					Warp warp = game.getWarpAtCurrentPosition();
+//					if(warp.toString().equals("snake")){
+//						ac.snakeSound();
+//					}
+//					else{
+//						ac.ladderSound();
+//					}
+//					game.currentPlayerWarp(warp);
+//					textArea.append(game.currentPlayerName() + " moved to " + game.currentPlayerPosition() + "\n");
+//				}
+//				if (game.isCurrentPlayerWins()) {
+//					ac.winSound();
+//					textArea.append("\n" + game.currentPlayerName() + " wins~!\n");
+//					infoBox("Player " + game.currentPlayerName() + " wins~!", "Game ended!");
+//					frame.end();
+//				} else if (game.currentPlayer().isFreeze() || (game.getDieFace() != 6 && !game.currentPlayer().isReverse())) {
+//					game.switchPlayer();
+//				}
+//				frame.getDieUI().setEnable();
+//				break;
+//			case DIE_ROLLED:
+//				textArea.append("Die rolled: " + game.getDieFace() + "\n");
+//				game.currentPlayerMovePiece(game.getDieFace());
+//				ac.diceSound(game.getDieFace());
+//				break;
+//			case PLAYER_FREEZE:
+//				textArea.append(game.currentPlayerName() + " is frozen.\n");
+//				ac.freezeSound();
+//				break;
+//			case PLAYER_REVERSE:
+//				textArea.append(game.currentPlayerName() + " stepped on reverse buff.\n");
+//				ac.reverseSound();
+//				break;
+//			case PLAYER_CHANGED:
+//				textArea.append("\n" + game.currentPlayerName() + "'s turn.\n");
+//				textArea.append(game.currentPlayerName() + " is at " + game.currentPlayerPosition() + ".\n");
+//				if (game.currentPlayer().isFreeze()) {
+//					textArea.append(game.currentPlayerName() + " is freezing.\n");
+//					game.currentPlayer().unfreeze();
+//					game.switchPlayer();
+//				}
+//				playerPanel.update();
+//				break;
+//			case PLAYER_WARP:
+//				textArea.append(game.currentPlayerName() + " met the " + game.getWarpAtCurrentPosition() + "\n");
+//				game.checkCurrentPlayerStatus();
+//				break;
+//			default:
+//			}
+//		}
+//		textArea.setCaretPosition(textArea.getDocument().getLength());
+//	}
 
 	private void infoBox(String infoMessage, String titleBar) {
 		JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);

@@ -29,7 +29,7 @@ public class ConsoleUI {
     }
 
     public static void main(String[] args) {
-//        new ConsoleUI().start(new Game());
+        new ConsoleUI().start(new Game(2));
     }
 
 }

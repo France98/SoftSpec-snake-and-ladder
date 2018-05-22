@@ -111,7 +111,7 @@ import project.Player;
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			ImageIcon bg = new ImageIcon(this.getClass().getResource("/img/snakeBoard.jpg"));
+			ImageIcon bg = new ImageIcon(this.getClass().getResource("/lib/snakeBoard.jpg"));
 			g.drawImage(bg.getImage(), 0, 0, null);
 		}
 

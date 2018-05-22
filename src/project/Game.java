@@ -1,6 +1,5 @@
 package project;
 
-import java.awt.Component;
 import java.util.ArrayList;
 
 public class Game {
@@ -95,12 +94,6 @@ public class Game {
 		return players;
 	}
     
-<<<<<<< HEAD
-    public Board getBoard(){
-		return board;
-    	
-    }
-=======
     public boolean isCurrentPlayerWins(){
 		ended = board.pieceIsAtGoal(currentPlayer().getPiece());
 		return ended;
@@ -117,6 +110,4 @@ public class Game {
     public Board getBoard(){ return board; }
     
     public int getDieFace(){ return die.getFace(); }
-    
->>>>>>> 4b3c21118a3ac2ce5f3b058a02f9ad95d04c90b7
 }

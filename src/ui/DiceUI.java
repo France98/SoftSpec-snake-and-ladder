@@ -12,22 +12,19 @@ import javax.swing.SwingConstants;
 
 import project.Game;
 
-public class DiceUI {
-
-	public class DiePanel extends JPanel{
-		
+public class DiceUI extends JPanel{
 		private Game game;
 		private JLabel number = new JLabel("Last roll: 0", SwingConstants.CENTER);
 		private JButton roll_btn;
 		
-		public DiePanel(Game game){
+		public DiceUI(Game game){
 			this.game = game;
 			initComponents();
 		}
 
 		private void initComponents() {
 			this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-			ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/img/rollbtn.png"));
+			ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/lib/rollbtn.png"));
 			roll_btn = new JButton(rollbtnImg);
 			roll_btn.addActionListener(new rollDie());
 			this.add(roll_btn);
@@ -46,6 +43,5 @@ public class DiceUI {
 			}
 
 		}
-	}
 		
 }

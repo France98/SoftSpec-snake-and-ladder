@@ -14,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import project.Game;
-import ui.DiceUI.DiePanel;
-import ui.DiceUI.DiePanel.rollDie;
 
 public class main extends JFrame{
 
@@ -23,7 +21,7 @@ public class main extends JFrame{
 	private JButton restartBtn;
 	private JButton quitBtn;
 	private JPanel south;
-	private DiePanel dieUI;
+	private DiceUI dieUI;
 	private JButton roll_btn;
 
 	/**
@@ -35,17 +33,17 @@ public class main extends JFrame{
 		initComponents();
 	}
 	
-	public DiePanel getDieUI(){
+	public DiceUI getDieUI(){
 		return dieUI;
 	}
 
 	private void initComponents() {
 		BoardUI boardUI = new BoardUI(game);
-		dieUI = new DiePanel(game);
+		dieUI = new DiceUI(game);
 		Controller controllerUI = new Controller(this,game);
-		ImageIcon restartbtnImg = new ImageIcon(this.getClass().getResource("/img/restartbtn.png"));
+		ImageIcon restartbtnImg = new ImageIcon(this.getClass().getResource("/lib/restartbtn.png"));
 		restartBtn = new JButton(restartbtnImg);
-		ImageIcon quitbtnImg = new ImageIcon(this.getClass().getResource("/img/quitbtn.png"));
+		ImageIcon quitbtnImg = new ImageIcon(this.getClass().getResource("/lib/quitbtn.png"));
 		quitBtn = new JButton(quitbtnImg);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Snake and Ladder");
@@ -71,7 +69,7 @@ public class main extends JFrame{
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/img/rollbtn.png"));
+		ImageIcon rollbtnImg = new ImageIcon(this.getClass().getResource("/lib/rollbtn.png"));
 		roll_btn = new JButton(rollbtnImg);
 		roll_btn.addActionListener(new rollDie());
 		this.add(roll_btn);
