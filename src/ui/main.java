@@ -11,11 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import project.Game;
 
-public class main extends JFrame{
+public class main extends JFrame {
 
 	private Game game;
 	private JButton restartBtn;
@@ -24,15 +25,14 @@ public class main extends JFrame{
 	private JButton roll_btn;
 	private BoardUI boardUI;
 
-	public main(Game game){
+	public main(Game game) {
 		this.game = game;
 		initComponents();
 	}
-	
 
 	public void initComponents() {
 		boardUI = new BoardUI(game);
-		Controller controllerUI = new Controller(this,game);
+		Controller controllerUI = new Controller(this, game);
 		ImageIcon restartbtnImg = new ImageIcon(this.getClass().getResource("/lib/restartbtn.png"));
 		restartBtn = new JButton(restartbtnImg);
 		ImageIcon quitbtnImg = new ImageIcon(this.getClass().getResource("/lib/quitbtn.png"));
@@ -46,74 +46,81 @@ public class main extends JFrame{
 		roll_btn.addActionListener(new rollDie());
 		JPanel center = new JPanel();
 		center.add(boardUI);
-		this.add(center,BorderLayout.CENTER);
+		this.add(center, BorderLayout.CENTER);
 		south = new JPanel();
 		south.add(roll_btn);
 		south.add(restartBtn);
 		south.add(quitBtn);
 		restartBtn.addActionListener(new EndListener(EndListener.RESTART));
 		quitBtn.addActionListener(new EndListener(EndListener.QUIT));
-		this.add(south,BorderLayout.SOUTH);
+		this.add(south, BorderLayout.SOUTH);
 		this.pack();
 		this.setLocationRelativeTo(null);
 	}
-	
-	public void setEnable(){
+
+	public void setEnable() {
 		roll_btn.setEnabled(true);
 	}
-	
-	/**
-	 * Make the main frame visible.
-	 */
-	public void start(){
+
+	public void start() {
 		this.show();
 	}
-	
-	/**
-	 * When it ends, there's no more die rolling.
-	 */
-	public void end(){
+
+	public void end() {
 		this.remove(south);
 		south = new JPanel();
 		south.add(restartBtn);
 		south.add(quitBtn);
-		this.add(south,BorderLayout.SOUTH);
+		this.add(south, BorderLayout.SOUTH);
 		pack();
 	}
-	
-	class EndListener implements ActionListener{
-		
+
+	class EndListener implements ActionListener {
+
 		final private static int RESTART = 0;
 		final private static int QUIT = 1;
 		private int mode;
-		
-		private EndListener(int mode){
+
+		private EndListener(int mode) {
 			this.mode = mode;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(mode == RESTART){
+			if (mode == RESTART) {
 				new start().start();
 				setVisible(false);
 				dispose();
 			}
-			if(mode == QUIT){
+			if (mode == QUIT) {
 				System.exit(0);
 			}
 		}
 	}
-	
-	class rollDie implements ActionListener{
+
+	class rollDie implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			game.currentPlayerRollDice();
-			game.currentPlayerMovePiece(game.getDieFace());
-			boardUI.updateBoard();
-			game.switchPlayer();
+			if (game.currentPlayer().getPiece().isFreeze()) {
+				game.currentPlayer().getPiece().unfreeze();
+				game.switchPlayer();
+			} else {
+				game.currentPlayerRollDice();
+				if (game.currentPlayer().getPiece().isReverse()) {
+					game.currentPlayerMovePiece(game.getDieFace());
+					game.currentPlayer().getPiece().unreverse();
+					game.switchPlayer();
+				} else {
+					game.currentPlayerMovePiece(game.getDieFace());
+					if(!game.currentPlayer().getPiece().isReverse()){
+						game.switchPlayer();
+					}
+				}
+				boardUI.updateBoard();
+			}
 		}
-		
+
 	}
-	
+
 }

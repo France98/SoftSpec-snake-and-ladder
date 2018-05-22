@@ -22,49 +22,8 @@ public class Game {
 			board.addPiece(players.get(i).getPiece(), 0);
 		}
 		ended = false;
-		initTraps();
     }
 
-    private void initTraps() {
-    	int pos = board.getPiecePosition(piece);
-    	switch (pos) {
-    	case 2: board.movePiece(piece, 36);
-    	case 7: board.movePiece(piece, 7);
-    	case 15: board.movePiece(piece, 11);
-    	case 8: board.movePiece(piece, 23);
-    	case 21: board.movePiece(piece, 21);
-    	case 28: board.movePiece(piece, 56);
-    	case 36: board.movePiece(piece, 8);
-    	case 51: board.movePiece(piece, 16);
-    	case 71: board.movePiece(piece, 20);
-    	case 78: board.movePiece(piece, 20);
-    	case 87: board.movePiece(piece, 7);
-    	case 16: board.movePiece(piece, -10);
-    	case 46: board.movePiece(piece, -21);
-    	case 49: board.movePiece(piece, -38);
-    	case 62: board.movePiece(piece, -43);
-    	case 64: board.movePiece(piece, -4);
-    	case 74: board.movePiece(piece, -21);
-    	case 89: board.movePiece(piece, -21);
-    	case 92: board.movePiece(piece, -4);
-    	case 95: board.movePiece(piece, -20);
-    	case 99: board.movePiece(piece, -19);
-    	case 9: square.setMode(Square.REVERSE);
-    	case 17: square.setMode(Square.REVERSE);
-    	case 30: square.setMode(Square.REVERSE);
-    	case 37: square.setMode(Square.REVERSE);
-    	case 45: square.setMode(Square.REVERSE);
-    	case 69: square.setMode(Square.REVERSE);
-    	case 77: square.setMode(Square.REVERSE);
-    	case 86: square.setMode(Square.REVERSE);
-    	case 97: square.setMode(Square.REVERSE);
-    	case 13: square.setMode(Square.FREEZE);
-    	case 33: square.setMode(Square.FREEZE);
-    	case 56: square.setMode(Square.FREEZE);
-    	case 79: square.setMode(Square.FREEZE);
-    	case 88: square.setMode(Square.FREEZE);
-    	}
-	}
 
 	public boolean isEnded() { return ended; }
 

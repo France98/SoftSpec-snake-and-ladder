@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -18,13 +20,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import project.Game;
 import project.Player;
 
-public class BoardUI extends JPanel {
+public class BoardUI extends JPanel implements Observer{
 	private Game game;
 	private JPanel[] panels = new JPanel[100];
 	private JLabel[] playerLabel;
@@ -32,11 +37,12 @@ public class BoardUI extends JPanel {
 	public BoardUI(Game game) {
 		this.game = game;
 		initComponents();
+		game.getBoard().addObserver(this);
 	}
 
 	private void initComponents() {
 		this.setLayout(new GridLayout(10, 10));
-		this.setPreferredSize(new Dimension(500, 500));
+		this.setPreferredSize(new Dimension(800, 800));
 		for (int i = 0; i < 100; i++) {
 			panels[i] = new JPanel();
 			panels[i].setLayout(new FlowLayout());
@@ -131,12 +137,21 @@ public class BoardUI extends JPanel {
 			panel.removeAll();
 		}
 	}
+	
+	private void infoBox(String infoMessage, String titleBar) {
+		JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		ImageIcon bg = new ImageIcon(this.getClass().getResource("/lib/Board.png"));
+		ImageIcon bg = new ImageIcon(this.getClass().getResource("/lib/snakeBoard.png"));
 		g.drawImage(bg.getImage(), 0, 0, null);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		infoBox("You move to " + (game.currentPlayerPosition() + 1), "Tell position");
 	}
 
 }

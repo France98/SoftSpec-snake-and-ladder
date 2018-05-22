@@ -49,10 +49,7 @@ public class start extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 	}
-	
-	/**
-	 * Make GUI visible.
-	 */
+
 	public void start(){
 		this.show();
 	}
